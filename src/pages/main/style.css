@@ -1,0 +1,117 @@
+.container {
+    max-width: 500px;
+    max-height: 500px;
+    margin: auto;
+    margin-top: 10%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #FFF;
+    background-color: #373C3F;
+    border-radius: 5px;
+}
+
+.divUrl {
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+}
+
+.divUrl input {
+    border: 1px solid #DDD;
+    border-radius: 3px;
+    height: 25px;
+    outline: none;
+}
+
+.divUrl button {
+    border: 1px solid #DDD;
+    border-radius: 3px;
+    cursor: pointer;
+    color: #636e72;
+}
+
+.divUrl button:hover {
+    background-color: #636e72;
+    color: #FFF;
+}
+
+.inputUrl {
+    width: 230px;
+}
+
+.urlEstatica {
+    width: 110px;
+}
+
+.urlEstatica {
+    color: #FFF;
+    background-color: #6E7274;
+}
+
+.btnIr {
+    width: 40px;
+    height: 29px;
+}
+
+
+.divOptions {
+    width: 80%;
+    margin-top: 10px;
+}
+
+.divOptions input {
+    width: 97%;
+    border: 1px solid #DDD;
+    border-radius: 3px;
+    height: 25px;
+    outline: none;
+}
+
+.divOptions select {
+    width: 99%;
+    border: 1px solid #DDD;
+    border-radius: 3px;
+    height: 25px;
+    outline: none;
+}
+
+.divOptions select option {
+    margin: 5px;
+    height: 25px;
+    font-size: 15px;
+}
+
+footer {
+    text-align: center;
+}
+
+footer p {
+    margin-top: 20%;
+}
+
+footer a {
+    text-decoration: none;
+    color: royalblue;
+}
+
+
+@media screen and (max-width: 600px) {
+    .container {
+        width: 100%;
+    }
+
+    .divUrl {
+        width: 80%;
+    }
+
+    .inputUrl {
+        width: 100%;
+    }
+
+    .btnIr {
+        width: 90px;
+        float: right;
+    }
+}
