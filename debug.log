@@ -40,3 +40,5 @@
 [0531/222218.754:ERROR:crash_report_database_win.cc(469)] failed to stat report
 [0601/193202.413:ERROR:crash_report_database_win.cc(469)] failed to stat report
 [0601/202803.371:ERROR:crash_report_database_win.cc(469)] failed to stat report
+[0602/185115.160:ERROR:crash_report_database_win.cc(469)] failed to stat report
+[0602/201141.106:ERROR:crash_report_database_win.cc(469)] failed to stat report

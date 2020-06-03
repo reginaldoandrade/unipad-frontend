@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import api from '../../service/api'
 import cripto from '../../util/encripty'
 
@@ -16,7 +17,7 @@ class Unipad extends Component {
             password: null,
             expiration: null,
             secure: false,
-            status: 'nenhuma alteração 👍',
+            status: '👍',
             padSalvo: ''
         }
 
@@ -77,12 +78,12 @@ class Unipad extends Component {
     async salva() {
         let { pad, url, status } = this.state
 
-        status = 'salvando 💾'
+        status = '💾'
         this.setState({ status: status })
 
         try {
             await api.put(`edit${url}`, { pad, url })
-            status = 'salvo ✔️'
+            status = '✔️'
             this.setState({ url, status, padSalvo: pad })
         } catch (error) {
             console.log(error);
@@ -109,12 +110,16 @@ class Unipad extends Component {
         const { status } = this.state
         return (
             <div className="container-unipad">
-                <p className="status">{status}</p>
+                <p className="titulo-status"><Link to="/">unipad </Link>{status}</p>
                 <div className="divTextarea">
                     {/* TextArea */}
                     <textarea name="pad" id="pad" autoFocus={true} datatype={this.state.format} value={this.state.pad} onChange={this.mudaDado}>
                     </textarea>
                 </div>
+
+                <footer>
+                    <p>Desenvolvido por <a href="https://jarodmateus.herokuapp.com/" target="_blanck">Jarod Cavalcante</a> - 2020</p>
+                </footer>
             </div>
         )
     }

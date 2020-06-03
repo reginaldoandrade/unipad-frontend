@@ -1,7 +1,9 @@
-body {
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
+
+html {
     margin: 0px;
     padding: 0px;
     box-sizing: border-box;
     background-color: #2F3437;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-family: 'Montserrat', sans-serif;
 }

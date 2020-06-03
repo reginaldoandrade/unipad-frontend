@@ -29,7 +29,8 @@ class Main extends Component {
     }
 
     // Adiciona os dados no banco de dados e redireciona para a página da url
-    async renderUnipad() {
+    async renderUnipad(e) {
+        e.preventDefault()
         let { url, format, password, expiration, secure } = this.state.form
 
         if (url.length <= 0) return
@@ -67,53 +68,55 @@ class Main extends Component {
 
     render() {
         return (
-            <div className="container">
-                <header>
-                    <h1>Unipad</h1>
-                </header>
+            <div>
+                <div className="container">
+                    <form onSubmit={this.renderUnipad}>
+                        <header>
+                            <h1>Unipad</h1>
+                        </header>
 
-                <div className="divUrl">
-                    <label>
-                        <input type="url" className="urlEstatica" defaultValue="unipad.netlify.com/" disabled />
-                        <input type="url" name="url" id="url" className="inputUrl" autoFocus={true} required={true} onChange={this.mudaDado} value={this.state.form.url} />
-                        <button className="btnIr" id="ir" onClick={this.renderUnipad}>Ir</button>
-                    </label>
-                </div>
+                        <div className="divUrl">
+                            <input type="url" defaultValue="unipad.herokuapp.com/" disabled className="estatica" />
+                            <input type="text" name="url" id="url" autoFocus={true} required onChange={this.mudaDado} value={this.state.form.url} className="inputUrl" placeholder="exemplo"/><span>*</span>
+                            <button type="submit">Ir</button>
+                        </div>
 
-                <div className="divOptions">
-                    <form>
                         <label htmlFor="password">
-                            Senha: <small><strong>Não é obrigatório</strong></small>
-                            <input type="password" autoComplete="false" name="password" id="password" className="inputText" placeholder="senha de acesso" onChange={this.mudaDado} value={this.state.form.password} />
-                        </label>
-                    </form>
-                </div>
-                <div className="divOptions">
-                    <label htmlFor="formatation">
-                        Formatação:
-                        <select name="format" id="format" value={this.state.form.format} onChange={this.mudaDado}>
+                            Senha:
+                            </label>
+                        <input type="password" autoComplete="false" name="password" id="password" placeholder="senha de acesso" onChange={this.mudaDado} value={this.state.form.password} />
+
+
+                        <label htmlFor="formatation">
+                            Formatação:
+                            </label>
+                        <select name="format" id="formatation" value={this.state.form.format} onChange={this.mudaDado}>
                             <option value="javascript">javascript</option>
                             <option value="java">java</option>
                             <option value="json">json</option>
                             <option value="text">text</option>
                         </select>
-                    </label>
-                </div>
-                <div className="divOptions">
-                    <label htmlFor="expira">
-                        Expira em:
-                        <select name="expiration" id="expiration" value={this.state.form.expiration} onChange={this.mudaDado}>
+
+
+                        <label htmlFor="expira">
+                            Expira em:
+                            </label>
+                        <select name="expiration" id="expira" value={this.state.form.expiration} onChange={this.mudaDado}>
                             <option value=''>Indefinido</option>
                             <option value={new Date(this.state.form.ano, this.state.form.mes, this.state.form.dia + 1)}>1 dia</option>
                             <option value={new Date(this.state.form.ano, this.state.form.mes, this.state.form.dia + 7)}>1 semana</option>
                             <option value={new Date(this.state.form.ano, this.state.form.mes + 1, this.state.form.dia)}>1 mês</option>
                             <option value={new Date(this.state.form.ano + 1, this.state.form.mes, this.state.form.dia)}>1 ano</option>
                         </select>
-                    </label>
+
+
+                    </form>
+
+                    <footer>
+                        <p>Desenvolvido por <a href="https://jarodmateus.herokuapp.com/" target="_blanck">Jarod Cavalcante</a> - 2020</p>
+                    </footer>
                 </div>
-                <footer>
-                    <p>Desenvolvido por Jarod Cavalcante - 2020</p>
-                </footer>
+
             </div>
         )
     }
