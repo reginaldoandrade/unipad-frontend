@@ -115,19 +115,25 @@ class Unipad extends Component {
     }
 
     render() {
-        const { status, passed, url, passwordLogin } = this.state
+        const { status, passed, url, passwordLogin, pad } = this.state
         return (
             <div className="container-unipad">
                 {passed === true ?
                     (
-                        <div>
-                            <p className="titulo-status"><Link to="/">unipad </Link>{status}</p>
-                            <div className="divTextarea">
-                                {/* TextArea */}
-                                <textarea name="pad" id="pad" autoFocus={true} datatype={this.state.format} value={this.state.pad} autoComplete="off" onChange={this.mudaDado} style={{ display: this.state.display_textarea }}>
-                                </textarea>
+                        pad === '' ? (
+                            <div className="carregando-pad">
+                                <p>Carregando pad...</p>
                             </div>
-                        </div>
+                        ) : (
+                                <div>
+                                    <p className="titulo-status"><Link to="/">unipad </Link>{status}</p>
+                                    <div className="divTextarea">
+                                        {/* TextArea */}
+                                        <textarea name="pad" id="pad" autoFocus={true} datatype={this.state.format} value={this.state.pad} autoComplete="off" onChange={this.mudaDado}>
+                                        </textarea>
+                                    </div>
+                                </div>
+                            )
                     )
                     : (
                         <div className="div-login">
@@ -135,7 +141,7 @@ class Unipad extends Component {
                                 <h1 className="titulo-status-login"><Link to="/">unipad </Link></h1>
                                 <h3>A url "{url}" é protegida</h3>
                                 <label htmlFor="password"></label>
-                                <input type="password" name="password" id="password" value={passwordLogin} required autoFocus autoComplete="off" onChange={(e) => this.setState({ passwordLogin: e.target.value })} placeholder="senha de acesso"/>
+                                <input type="password" name="password" id="password" value={passwordLogin} required autoFocus autoComplete="off" onChange={(e) => this.setState({ passwordLogin: e.target.value })} placeholder="senha de acesso" />
 
                                 <p><button type="submit" id="btn-login">Entrar</button></p>
                             </form>

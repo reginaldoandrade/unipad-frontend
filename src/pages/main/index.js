@@ -37,15 +37,18 @@ class Main extends Component {
         e.preventDefault()
         let { url, format, password, expiration, secure } = this.state.form
 
+        // Caso o input esteja vazio, não faça nada
         if (url.length <= 0) return
 
-        localStorage.setItem('url', url)
         const response = await api.get(`/${url}`)
 
+        // Se a url já existir, apenas redireciona ela
         if (response !== null) {
             window.location.href = `/${url}`
         }
 
+        // Setando password como null caso o input esteja vazio, para salvar no DB
+        // Se o user tiver digitado um passowrd, ele encripta o mesmo
         if (password.length <= 0) {
             password = null
         } else {
