@@ -11,7 +11,7 @@ class Main extends Component {
             form: {
                 url: '',
                 password: '',
-                format: 'javascript',
+                format: 'text',
                 expiration: '',
                 secure: false,
                 dia: new Date().getDate(),
@@ -99,6 +99,10 @@ class Main extends Component {
                             <option value="javascript">javascript</option>
                             <option value="java">java</option>
                             <option value="json">json</option>
+                            <option value="C">C</option>
+                            <option value="C#">C#</option>
+                            <option value="C++">C++</option>
+                            <option value="PHP">PHP</option>
                             <option value="text">text</option>
                         </select>
 

@@ -13,7 +13,7 @@ class Unipad extends Component {
             pad: '',
             url: window.location.pathname,
             intervalo: '',
-            format: '',
+            format: null,
             password: null,
             passwordLogin: '',
             expiration: null,
@@ -115,12 +115,12 @@ class Unipad extends Component {
     }
 
     render() {
-        const { status, passed, url, passwordLogin, pad } = this.state
+        const { status, passed, url, passwordLogin, pad, format } = this.state
         return (
             <div className="container-unipad">
                 {passed === true ?
                     (
-                        pad === '' ? (
+                        format === null ? (
                             <div className="carregando-pad">
                                 <p>Carregando pad...</p>
                             </div>
@@ -129,7 +129,7 @@ class Unipad extends Component {
                                     <p className="titulo-status"><Link to="/">unipad </Link>{status}</p>
                                     <div className="divTextarea">
                                         {/* TextArea */}
-                                        <textarea name="pad" id="pad" autoFocus={true} datatype={this.state.format} value={this.state.pad} autoComplete="off" onChange={this.mudaDado}>
+                                        <textarea name="pad" id="pad" autoFocus={true} datatype={this.state.format} value={pad} autoComplete="off" onChange={this.mudaDado}>
                                         </textarea>
                                     </div>
                                 </div>
