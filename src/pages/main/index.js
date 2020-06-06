@@ -16,7 +16,11 @@ class Main extends Component {
                 secure: false,
                 dia: new Date().getDate(),
                 mes: new Date().getMonth(),
-                ano: new Date().getFullYear()
+                ano: new Date().getFullYear(),
+                hora: new Date().getHours(),
+                minutos: new Date().getMinutes(),
+                segundos: new Date().getSeconds(),
+                milisegundos: new Date().getMilliseconds()
             },
         }
         this.renderUnipad = this.renderUnipad.bind(this)
@@ -25,7 +29,7 @@ class Main extends Component {
 
     //Verifica se há urls com a data de expiração expirada e deleta a mesma
     async componentDidMount() {
-        api.delete('/expiration')
+        await api.delete('/expiration')
     }
 
     // Adiciona os dados no banco de dados e redireciona para a página da url
@@ -74,18 +78,16 @@ class Main extends Component {
                         <header>
                             <h1>Unipad</h1>
                         </header>
-
                         <div className="divUrl">
                             <input type="url" defaultValue="unipad.herokuapp.com/" disabled className="estatica" />
-                            <input type="text" name="url" id="url" autoFocus={true} required onChange={this.mudaDado} value={this.state.form.url} className="inputUrl" placeholder="exemplo"/><span>*</span>
+                            <input type="text" name="url" id="url" autoFocus={true} required onChange={this.mudaDado} value={this.state.form.url} className="inputUrl" placeholder="exemplo" /><span>*</span>
                             <button type="submit">Ir</button>
                         </div>
 
                         <label htmlFor="password">
                             Senha:
                             </label>
-                        <input type="password" autoComplete="false" name="password" id="password" placeholder="senha de acesso" onChange={this.mudaDado} value={this.state.form.password} />
-
+                        <input type="password" name="password" id="password" autoComplete="off" placeholder="senha de acesso" onChange={this.mudaDado} value={this.state.form.password} />
 
                         <label htmlFor="formatation">
                             Formatação:
@@ -103,6 +105,11 @@ class Main extends Component {
                             </label>
                         <select name="expiration" id="expira" value={this.state.form.expiration} onChange={this.mudaDado}>
                             <option value=''>Indefinido</option>
+                            <option value={new Date(this.state.form.ano, this.state.form.mes, this.state.form.dia, this.state.form.hora, this.state.form.minutos + 30, this.state.form.segundos, this.state.form.milisegundos)}>30 minutos</option>
+                            <option value={new Date(this.state.form.ano, this.state.form.mes, this.state.form.dia, this.state.form.hora + 1, this.state.form.minutos, this.state.form.segundos, this.state.form.milisegundos)}>1 hora</option>
+                            <option value={new Date(this.state.form.ano, this.state.form.mes, this.state.form.dia, this.state.form.hora + 5, this.state.form.minutos, this.state.form.segundos, this.state.form.milisegundos)}>5 horas</option>
+                            <option value={new Date(this.state.form.ano, this.state.form.mes, this.state.form.dia, this.state.form.hora + 8, this.state.form.minutos, this.state.form.segundos, this.state.form.milisegundos)}>8 horas</option>
+                            <option value={new Date(this.state.form.ano, this.state.form.mes, this.state.form.dia, this.state.form.hora + 12, this.state.form.minutos, this.state.form.segundos, this.state.form.milisegundos)}>12 horas</option>
                             <option value={new Date(this.state.form.ano, this.state.form.mes, this.state.form.dia + 1)}>1 dia</option>
                             <option value={new Date(this.state.form.ano, this.state.form.mes, this.state.form.dia + 7)}>1 semana</option>
                             <option value={new Date(this.state.form.ano, this.state.form.mes + 1, this.state.form.dia)}>1 mês</option>

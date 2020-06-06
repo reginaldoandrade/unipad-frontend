@@ -15,19 +15,26 @@ class Unipad extends Component {
             intervalo: '',
             format: '',
             password: null,
+            passwordLogin: '',
             expiration: null,
             secure: false,
             status: '👍',
-            padSalvo: ''
+            padSalvo: '',
+            passed: true
         }
 
         this.salva = this.salva.bind(this)
         this.mudaDado = this.mudaDado.bind(this)
+        this.verificaSenha = this.verificaSenha.bind(this)
     }
 
     // Executa a busca pela url e verifica se é protegida
     async componentDidMount() {
         let state = this.state
+
+        // Verifica se a url não está expirada
+        await api.delete('/expiration')
+
         const response = await api.get(`${state.url}`)
 
         let unipad = response.data
@@ -47,31 +54,31 @@ class Unipad extends Component {
             })
 
             this.componentDidMount()
-        }
-
-
-        // Verifica se o password bate
-        if (unipad.secure === true) {
-            let passed = false
-            while (!passed) {
-                let password = window.prompt('Digite a senha')
-                let url = state.url
-                password = await cripto(password)
-
-                const verification = await api.post('/auth', { url, password })
-
-                if (verification.data.success === false) {
-                    alert('Dados incorretos')
-                } else {
-                    passed = true
-                }
-            }
-
+            //  Caso haja senha, ele irá exibir o form de login
+        } else if (unipad.secure === true) {
+            state.passed = false
         }
 
         state.pad = unipad.pad
         state.format = unipad.format
         this.setState(state)
+    }
+
+    // Verifica se a senha bate
+    async verificaSenha(e) {
+        e.preventDefault()
+        let { url, passwordLogin } = this.state
+        passwordLogin = await cripto(passwordLogin)
+
+        const verification = await api.post('/auth', { url, password: passwordLogin })
+
+        if (verification.data.success === false) {
+            alert('Dados incorretos')
+        } else {
+            this.setState({
+                passed: true
+            })
+        }
     }
 
     // Salva os dados a cada 2 segundos
@@ -106,16 +113,34 @@ class Unipad extends Component {
 
         this.setState(state)
     }
+
     render() {
-        const { status } = this.state
+        const { status, passed, url, passwordLogin } = this.state
         return (
             <div className="container-unipad">
-                <p className="titulo-status"><Link to="/">unipad </Link>{status}</p>
-                <div className="divTextarea">
-                    {/* TextArea */}
-                    <textarea name="pad" id="pad" autoFocus={true} datatype={this.state.format} value={this.state.pad} onChange={this.mudaDado}>
-                    </textarea>
-                </div>
+                {passed === true ?
+                    (
+                        <div>
+                            <p className="titulo-status"><Link to="/">unipad </Link>{status}</p>
+                            <div className="divTextarea">
+                                {/* TextArea */}
+                                <textarea name="pad" id="pad" autoFocus={true} datatype={this.state.format} value={this.state.pad} autoComplete="off" onChange={this.mudaDado} style={{ display: this.state.display_textarea }}>
+                                </textarea>
+                            </div>
+                        </div>
+                    )
+                    : (
+                        <div className="div-login">
+                            <form onSubmit={this.verificaSenha} id="form-login">
+                                <h1 className="titulo-status-login"><Link to="/">unipad </Link></h1>
+                                <h3>A url "{url}" é protegida</h3>
+                                <label htmlFor="password"></label>
+                                <input type="password" name="password" id="password" value={passwordLogin} required autoFocus autoComplete="off" onChange={(e) => this.setState({ passwordLogin: e.target.value })} placeholder="senha de acesso"/>
+
+                                <p><button type="submit" id="btn-login">Entrar</button></p>
+                            </form>
+                        </div>
+                    )}
 
                 <footer>
                     <p>Desenvolvido por <a href="https://jarodmateus.herokuapp.com/" target="_blanck">Jarod Cavalcante</a> - 2020</p>

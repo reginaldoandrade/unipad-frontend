@@ -7,6 +7,25 @@ textarea {
     outline: none;
 }
 
+form#form-login {
+    width: 100%;
+    max-width: 500px;
+    color: #FFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+form#form-login button#btn-login {
+    width: 100px;
+    height: 40px;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 3px;
+    border: none;
+    background-color: #FFF;
+}
+
 footer {
     width: 100%;
     color: #FFF;
@@ -28,4 +47,11 @@ footer p a {
     text-align: center;
     background-color: #2F3437;
     color: #FFF;
+}
+
+.div-login {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
