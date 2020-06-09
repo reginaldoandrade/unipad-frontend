@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import api from '../../service/api'
 import cripto from '../../util/encripty'
 
-import './style.css'
+import { Container, Form, Head, DivUrl, UrlEstatica, FormLabel, Input, Select, Option, Span, Links, Button } from './styles'
 
 class Main extends Component {
     constructor(props) {
@@ -75,63 +75,60 @@ class Main extends Component {
 
     render() {
         return (
-            <div>
-                <div className="container">
-                    <form onSubmit={this.renderUnipad}>
-                        <header>
-                            <h1>Unipad</h1>
-                        </header>
-                        <div className="divUrl">
-                            <input type="url" defaultValue="unipad.herokuapp.com/" disabled className="estatica" />
-                            <input type="text" name="url" id="url" autoFocus={true} required onChange={this.mudaDado} value={this.state.form.url} className="inputUrl" placeholder="exemplo" /><span>*</span>
-                            <button type="submit">Ir</button>
-                        </div>
+            <Container>
+                <Form onSubmit={this.renderUnipad}>
+                    <Head>
+                        <h1>Unipad</h1>
+                    </Head>
+                    <DivUrl>
+                        <UrlEstatica type="url" defaultValue="unipad.herokuapp.com/" disabled />
+                        <Input type="text" name="url" id="url" autoFocus={true} required onChange={this.mudaDado} value={this.state.form.url} className="inputUrl" placeholder="exemplo" /><Span>*</Span>
+                        <Button type="submit">Ir</Button>
+                    </DivUrl>
 
-                        <label htmlFor="password">
-                            Senha:
-                            </label>
-                        <input type="password" name="password" id="password" autoComplete="off" placeholder="senha de acesso" onChange={this.mudaDado} value={this.state.form.password} />
+                    <FormLabel htmlFor="password">
+                        Senha:
+                            </FormLabel>
+                    <Input type="password" name="password" id="password" autoComplete="off" placeholder="senha de acesso" onChange={this.mudaDado} value={this.state.form.password} />
 
-                        <label htmlFor="formatation">
-                            Formatação:
-                            </label>
-                        <select name="format" id="formatation" value={this.state.form.format} onChange={this.mudaDado}>
-                            <option value="javascript">javascript</option>
-                            <option value="java">java</option>
-                            <option value="json">json</option>
-                            <option value="C">C</option>
-                            <option value="C#">C#</option>
-                            <option value="C++">C++</option>
-                            <option value="PHP">PHP</option>
-                            <option value="text">text</option>
-                        </select>
-
-
-                        <label htmlFor="expira">
-                            Expira em:
-                            </label>
-                        <select name="expiration" id="expira" value={this.state.form.expiration} onChange={this.mudaDado}>
-                            <option value=''>Indefinido</option>
-                            <option value={new Date(this.state.form.ano, this.state.form.mes, this.state.form.dia, this.state.form.hora, this.state.form.minutos + 30, this.state.form.segundos, this.state.form.milisegundos)}>30 minutos</option>
-                            <option value={new Date(this.state.form.ano, this.state.form.mes, this.state.form.dia, this.state.form.hora + 1, this.state.form.minutos, this.state.form.segundos, this.state.form.milisegundos)}>1 hora</option>
-                            <option value={new Date(this.state.form.ano, this.state.form.mes, this.state.form.dia, this.state.form.hora + 5, this.state.form.minutos, this.state.form.segundos, this.state.form.milisegundos)}>5 horas</option>
-                            <option value={new Date(this.state.form.ano, this.state.form.mes, this.state.form.dia, this.state.form.hora + 8, this.state.form.minutos, this.state.form.segundos, this.state.form.milisegundos)}>8 horas</option>
-                            <option value={new Date(this.state.form.ano, this.state.form.mes, this.state.form.dia, this.state.form.hora + 12, this.state.form.minutos, this.state.form.segundos, this.state.form.milisegundos)}>12 horas</option>
-                            <option value={new Date(this.state.form.ano, this.state.form.mes, this.state.form.dia + 1)}>1 dia</option>
-                            <option value={new Date(this.state.form.ano, this.state.form.mes, this.state.form.dia + 7)}>1 semana</option>
-                            <option value={new Date(this.state.form.ano, this.state.form.mes + 1, this.state.form.dia)}>1 mês</option>
-                            <option value={new Date(this.state.form.ano + 1, this.state.form.mes, this.state.form.dia)}>1 ano</option>
-                        </select>
+                    <FormLabel htmlFor="formatation">
+                        Formatação:
+                            </FormLabel>
+                    <Select name="format" id="formatation" value={this.state.form.format} onChange={this.mudaDado}>
+                        <Option value="javascript">javascript</Option>
+                        <Option value="java">java</Option>
+                        <Option value="json">json</Option>
+                        <Option value="C">C</Option>
+                        <Option value="C#">C#</Option>
+                        <Option value="C++">C++</Option>
+                        <Option value="PHP">PHP</Option>
+                        <Option value="text">text</Option>
+                    </Select>
 
 
-                    </form>
+                    <FormLabel htmlFor="expira">
+                        Expira em:
+                            </FormLabel>
+                    <Select name="expiration" id="expira" value={this.state.form.expiration} onChange={this.mudaDado}>
+                        <Option value=''>Indefinido</Option>
+                        <Option value={new Date(this.state.form.ano, this.state.form.mes, this.state.form.dia, this.state.form.hora, this.state.form.minutos + 30, this.state.form.segundos, this.state.form.milisegundos)}>30 minutos</Option>
+                        <Option value={new Date(this.state.form.ano, this.state.form.mes, this.state.form.dia, this.state.form.hora + 1, this.state.form.minutos, this.state.form.segundos, this.state.form.milisegundos)}>1 hora</Option>
+                        <Option value={new Date(this.state.form.ano, this.state.form.mes, this.state.form.dia, this.state.form.hora + 5, this.state.form.minutos, this.state.form.segundos, this.state.form.milisegundos)}>5 horas</Option>
+                        <Option value={new Date(this.state.form.ano, this.state.form.mes, this.state.form.dia, this.state.form.hora + 8, this.state.form.minutos, this.state.form.segundos, this.state.form.milisegundos)}>8 horas</Option>
+                        <Option value={new Date(this.state.form.ano, this.state.form.mes, this.state.form.dia, this.state.form.hora + 12, this.state.form.minutos, this.state.form.segundos, this.state.form.milisegundos)}>12 horas</Option>
+                        <Option value={new Date(this.state.form.ano, this.state.form.mes, this.state.form.dia + 1)}>1 dia</Option>
+                        <Option value={new Date(this.state.form.ano, this.state.form.mes, this.state.form.dia + 7)}>1 semana</Option>
+                        <Option value={new Date(this.state.form.ano, this.state.form.mes + 1, this.state.form.dia)}>1 mês</Option>
+                        <Option value={new Date(this.state.form.ano + 1, this.state.form.mes, this.state.form.dia)}>1 ano</Option>
+                    </Select>
 
-                    <footer>
-                        <p>Desenvolvido por <a href="https://jarodmateus.herokuapp.com/" target="_blanck">Jarod Cavalcante</a> - 2020</p>
-                    </footer>
-                </div>
 
-            </div>
+                </Form>
+
+                <footer>
+                    <p>Desenvolvido por <Links href="https://jarodmateus.herokuapp.com/" target="_blanck">Jarod Cavalcante</Links> - 2020</p>
+                </footer>
+            </Container>
         )
     }
 }

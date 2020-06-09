@@ -3,8 +3,7 @@ import { Link } from 'react-router-dom'
 import api from '../../service/api'
 import cripto from '../../util/encripty'
 
-
-import './style.css'
+import { Container, DivCarregamento, TituloStatus, Textarea, DivLogin, Form, FormButton, Footer, LinkFooter, TituloStatusLogin, DivTextarea, DivPad } from './styles'
 
 class Unipad extends Component {
     constructor(props) {
@@ -98,13 +97,13 @@ class Unipad extends Component {
     }
 
     //Chama a função de atualizar os dados a cada 2 segundos
-    intervalo = setInterval(() => {
-        if (this.state.pad !== this.state.padSalvo) {
-            this.salva()
-        } else {
-            return
-        }
-    }, 1000)
+    // intervalo = setInterval(() => {
+    //     if (this.state.pad !== this.state.padSalvo) {
+    //         this.salva()
+    //     } else {
+    //         return
+    //     }
+    // }, 1000)
 
 
     mudaDado(e) {
@@ -117,41 +116,41 @@ class Unipad extends Component {
     render() {
         const { status, passed, url, passwordLogin, pad, format } = this.state
         return (
-            <div className="container-unipad">
+            <Container>
                 {passed === true ?
                     (
                         format === null ? (
-                            <div className="carregando-pad">
+                            <DivCarregamento>
                                 <p>Carregando pad...</p>
-                            </div>
+                            </DivCarregamento>
                         ) : (
-                                <div>
-                                    <p className="titulo-status"><Link to="/">unipad </Link>{status}</p>
-                                    <div className="divTextarea">
-                                        {/* TextArea */}
-                                        <textarea name="pad" id="pad" autoFocus={true} datatype={this.state.format} value={pad} autoComplete="off" onChange={this.mudaDado}>
-                                        </textarea>
-                                    </div>
-                                </div>
+                                <DivPad>
+                                    <TituloStatus><Link to="/">unipad </Link>{status}</TituloStatus>
+                                    {/* TextArea */}
+                                    <DivTextarea>
+                                        <Textarea name="pad" id="pad" autoFocus={true} datatype={this.state.format} value={pad} autoComplete="off" onChange={this.mudaDado} onKeyUp={this.salva}>
+                                        </Textarea>
+                                    </DivTextarea>
+                                </DivPad>
                             )
                     )
                     : (
-                        <div className="div-login">
-                            <form onSubmit={this.verificaSenha} id="form-login">
-                                <h1 className="titulo-status-login"><Link to="/">unipad </Link></h1>
+                        <DivLogin>
+                            <Form onSubmit={this.verificaSenha} id="form-login">
+                                <TituloStatusLogin className="titulo-status-login"><Link to="/">unipad </Link></TituloStatusLogin>
                                 <h3>A url "{url}" é protegida</h3>
                                 <label htmlFor="password"></label>
                                 <input type="password" name="password" id="password" value={passwordLogin} required autoFocus autoComplete="off" onChange={(e) => this.setState({ passwordLogin: e.target.value })} placeholder="senha de acesso" />
 
-                                <p><button type="submit" id="btn-login">Entrar</button></p>
-                            </form>
-                        </div>
+                                <p><FormButton type="submit" id="btn-login">Entrar</FormButton></p>
+                            </Form>
+                        </DivLogin>
                     )}
 
-                <footer>
-                    <p>Desenvolvido por <a href="https://jarodmateus.herokuapp.com/" target="_blanck">Jarod Cavalcante</a> - 2020</p>
-                </footer>
-            </div>
+                <Footer>
+                    <p>Desenvolvido por <LinkFooter href="https://jarodmateus.herokuapp.com/" target="_blanck">Jarod Cavalcante</LinkFooter> - 2020</p>
+                </Footer>
+            </Container>
         )
     }
 }
