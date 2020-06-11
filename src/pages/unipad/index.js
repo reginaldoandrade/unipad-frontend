@@ -1,9 +1,24 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+
+// Editor de Código
+//import Editor from 'react-simple-code-editor';
+import { highlight, languages } from 'prismjs/components/prism-core';
+
 import api from '../../service/api'
 import cripto from '../../util/encripty'
 
-import { Container, DivCarregamento, TituloStatus, Textarea, DivLogin, Form, FormButton, Footer, LinkFooter, TituloStatusLogin, DivTextarea, DivPad } from './styles'
+import { Container, DivCarregamento, TituloStatus, DivLogin, Form, FormButton, Footer, LinkFooter, TituloStatusLogin, DivTextarea, DivPad, Textarea } from './styles'
+
+// Estilo do editor
+import 'prismjs/components/prism-clike';
+import 'prismjs/components/prism-javascript';
+import 'prismjs/components/prism-java';
+import 'prismjs/components/prism-c';
+import 'prismjs/components/prism-json';
+import 'prismjs/components/prism-sql';
+
+import './prism.css';
 
 class Unipad extends Component {
     constructor(props) {
@@ -19,7 +34,7 @@ class Unipad extends Component {
             secure: false,
             status: '👍',
             padSalvo: '',
-            passed: true
+            passed: true,
         }
 
         this.salva = this.salva.bind(this)
@@ -96,7 +111,7 @@ class Unipad extends Component {
         }
     }
 
-    //Chama a função de atualizar os dados a cada 2 segundos
+    //Chama a função de atualizar os dados a cada 1 segundo
     // intervalo = setInterval(() => {
     //     if (this.state.pad !== this.state.padSalvo) {
     //         this.salva()
@@ -128,8 +143,17 @@ class Unipad extends Component {
                                     <TituloStatus><Link to="/">unipad </Link>{status}</TituloStatus>
                                     {/* TextArea */}
                                     <DivTextarea>
-                                        <Textarea name="pad" id="pad" autoFocus={true} datatype={this.state.format} value={pad} autoComplete="off" onChange={this.mudaDado} onKeyUp={this.salva}>
-                                        </Textarea>
+                                        <Textarea
+                                            value={pad}
+                                            onValueChange={pad => this.setState({ pad })}
+                                            onKeyUp={this.salva}
+                                            highlight={pad => highlight(pad, languages[format])}
+                                            padding={10}
+                                            style={{
+                                                fontFamily: '"Fira code", "Fira Mono", monospace',
+                                                fontSize: 12,
+                                            }}
+                                        />
                                     </DivTextarea>
                                 </DivPad>
                             )

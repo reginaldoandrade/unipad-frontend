@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import Editor from 'react-simple-code-editor';
 
 export const Container = styled.div`
     width: 100%;
@@ -22,7 +23,8 @@ export const DivCarregamento = styled.div`
 `
 
 export const TituloStatus = styled.p`
-    height: 20px;
+    margin: 0px auto 5px auto;
+    height: 15px;
     text-align: center;
     background-color: #2F3437;
     color: #FFF;
@@ -44,13 +46,15 @@ export const TituloStatusLogin = styled.h1`
 
 export const DivTextarea = styled.div`
     width: 100%;
-    min-height: 80vh;
+    min-height: 90vh;
 `
 
-export const Textarea = styled.textarea`
+export const Textarea = styled(Editor)`
     width: 100%;
-    min-height: 80vh;
+    min-height: 90vh;
     border-radius: 3px;
+    background-color: #FFF;
+    color: black;
     resize: none;
     border: none;
     outline: none;
@@ -83,8 +87,10 @@ export const FormButton = styled.button`
 
 export const Footer = styled.footer`
     width: 100%;
+    margin-top: 1.5%;
     color: #FFF;
     text-align: center;
+    font-size: 12px;
 `
 
 export const LinkFooter = styled.a`

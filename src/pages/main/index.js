@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import api from '../../service/api'
 import cripto from '../../util/encripty'
 
-import { Container, Form, Head, DivUrl, UrlEstatica, FormLabel, Input, Select, Option, Span, Links, Button } from './styles'
+import { Container, Form, Head, DivUrl, UrlEstatica, FormLabel, Input, Select, Option, Span, Links, Button, Footer } from './styles'
 
 class Main extends Component {
     constructor(props) {
@@ -11,7 +11,7 @@ class Main extends Component {
             form: {
                 url: '',
                 password: '',
-                format: 'text',
+                format: 'javascript',
                 expiration: '',
                 secure: false,
                 dia: new Date().getDate(),
@@ -98,11 +98,8 @@ class Main extends Component {
                         <Option value="javascript">javascript</Option>
                         <Option value="java">java</Option>
                         <Option value="json">json</Option>
-                        <Option value="C">C</Option>
-                        <Option value="C#">C#</Option>
-                        <Option value="C++">C++</Option>
-                        <Option value="PHP">PHP</Option>
-                        <Option value="text">text</Option>
+                        <Option value="c">C</Option>
+                        <Option value="sql">SQL</Option>
                     </Select>
 
 
@@ -113,9 +110,7 @@ class Main extends Component {
                         <Option value=''>Indefinido</Option>
                         <Option value={new Date(this.state.form.ano, this.state.form.mes, this.state.form.dia, this.state.form.hora, this.state.form.minutos + 30, this.state.form.segundos, this.state.form.milisegundos)}>30 minutos</Option>
                         <Option value={new Date(this.state.form.ano, this.state.form.mes, this.state.form.dia, this.state.form.hora + 1, this.state.form.minutos, this.state.form.segundos, this.state.form.milisegundos)}>1 hora</Option>
-                        <Option value={new Date(this.state.form.ano, this.state.form.mes, this.state.form.dia, this.state.form.hora + 5, this.state.form.minutos, this.state.form.segundos, this.state.form.milisegundos)}>5 horas</Option>
                         <Option value={new Date(this.state.form.ano, this.state.form.mes, this.state.form.dia, this.state.form.hora + 8, this.state.form.minutos, this.state.form.segundos, this.state.form.milisegundos)}>8 horas</Option>
-                        <Option value={new Date(this.state.form.ano, this.state.form.mes, this.state.form.dia, this.state.form.hora + 12, this.state.form.minutos, this.state.form.segundos, this.state.form.milisegundos)}>12 horas</Option>
                         <Option value={new Date(this.state.form.ano, this.state.form.mes, this.state.form.dia + 1)}>1 dia</Option>
                         <Option value={new Date(this.state.form.ano, this.state.form.mes, this.state.form.dia + 7)}>1 semana</Option>
                         <Option value={new Date(this.state.form.ano, this.state.form.mes + 1, this.state.form.dia)}>1 mês</Option>
@@ -125,9 +120,9 @@ class Main extends Component {
 
                 </Form>
 
-                <footer>
+                <Footer>
                     <p>Desenvolvido por <Links href="https://jarodmateus.herokuapp.com/" target="_blanck">Jarod Cavalcante</Links> - 2020</p>
-                </footer>
+                </Footer>
             </Container>
         )
     }

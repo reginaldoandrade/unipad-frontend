@@ -117,3 +117,8 @@ export const Button = styled.button`
         margin-left: 75%;
     }
 `
+
+export const Footer = styled.footer`
+    margin-top: 22%;
+    font-size: 12px;
+`
