@@ -6,7 +6,7 @@ O [unipad](https://unipad.herokuapp.com/) é um bloco de notas simples e online,
 |--|--| --|
 | Pode proteger a URL com senha | Não | Sim  |
 |Pode definir uma data para expiração da URL|Não| Sim
-|Formata o conteúdo de acordo com o formato do arquivo|Não| Fulturamente
+|Formata o conteúdo de acordo com o formato do arquivo|Não| Em testes
 
 ---
 ### Desenvolvimento
