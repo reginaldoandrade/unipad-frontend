@@ -57,7 +57,7 @@ class Unipad extends Component {
         if (unipad.success === false && unipad.description === 'url nao existe') {
             let { url, password, secure, expiration, format } = this.state
 
-            format = 'text'
+            format = 'javascript'
 
             await api.post(`${state.url}`, {
                 url,
