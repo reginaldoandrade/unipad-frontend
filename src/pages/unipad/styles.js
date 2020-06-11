@@ -62,9 +62,43 @@ export const Textarea = styled(Editor)`
 
 export const DivLogin = styled.div`
     width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    form {
+        width: 100%;
+        height: 250px;
+        max-width: 600px;
+        margin: auto;
+        background-color: #373C3F;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: #FFF;
+
+            input{
+                width: 200px;
+                height: 40px;
+                color: #FFF;
+                background-color: #2F3437;
+                border-radius: 3px;
+                font-size: 18px;
+                outline: none;
+                border: 1px solid #DDD;
+            }
+
+            button{
+                width: 80px;
+                cursor: pointer;
+                border-radius: 3px;
+                border: none;
+                background-color: #FFF;
+
+                &:hover{
+                background-color: #2F3437;
+                color: #FFF;
+                border: 1px solid #DDD;
+                }
+            }
+    }
 `
 
 export const Form = styled.form`
@@ -72,6 +106,7 @@ export const Form = styled.form`
     max-width: 500px;
     color: #FFF;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 `

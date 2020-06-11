@@ -66,8 +66,8 @@ class Unipad extends Component {
                 expiration,
                 secure
             })
-
             this.componentDidMount()
+            return null
             //  Caso haja senha, ele irá exibir o form de login
         } else if (unipad.secure === true) {
             state.passed = false
