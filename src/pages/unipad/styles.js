@@ -1,9 +1,10 @@
 import styled from 'styled-components'
 import Editor from 'react-simple-code-editor';
+import { CopyToClipboard } from 'react-copy-to-clipboard'
 
 export const Container = styled.div`
     width: 100%;
-    height: 90vh;
+    height: 95vh;
     color: #FFF;
     display: flex;
     flex-direction: column;
@@ -46,7 +47,6 @@ export const TituloStatusLogin = styled.h1`
 
 export const DivTextarea = styled.div`
     width: 100%;
-    min-height: 90vh;
 `
 
 export const Textarea = styled(Editor)`
@@ -122,7 +122,7 @@ export const FormButton = styled.button`
 
 export const Footer = styled.footer`
     width: 100%;
-    margin-top: 1.5%;
+    margin-top: 0.1%;
     color: #FFF;
     text-align: center;
     font-size: 12px;
@@ -135,4 +135,24 @@ export const LinkFooter = styled.a`
 
 export const DivPad = styled.div`
     width: 100%;
+`
+
+export const CopiarAreadeTransferencia = styled(CopyToClipboard)`
+    width: 100px;
+    height: 20px;
+    margin: 4px;
+    cursor: pointer;
+    border-radius: 3px;
+    border: none;
+    background-color: #FFF;
+`
+
+export const CompartilharUrl = styled(CopyToClipboard)`
+    width: 100px;
+    height: 20px;
+    margin: 4px;
+    cursor: pointer;
+    border-radius: 3px;
+    border: none;
+    background-color: #FFF;
 `

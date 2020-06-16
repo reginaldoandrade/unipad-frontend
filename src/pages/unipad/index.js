@@ -1,14 +1,12 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-
-// Editor de Código
-//import Editor from 'react-simple-code-editor';
-import { highlight, languages } from 'prismjs/components/prism-core';
-
 import api from '../../service/api'
 import cripto from '../../util/encripty'
 
-import { Container, DivCarregamento, TituloStatus, DivLogin, Form, FormButton, Footer, LinkFooter, TituloStatusLogin, DivTextarea, DivPad, Textarea } from './styles'
+// Editor de Código
+import { highlight, languages } from 'prismjs/components/prism-core';
+
+import { Container, DivCarregamento, TituloStatus, DivLogin, Form, FormButton, Footer, LinkFooter, TituloStatusLogin, DivTextarea, DivPad, Textarea, CopiarAreadeTransferencia, CompartilharUrl } from './styles'
 
 // Estilo do editor
 import 'prismjs/components/prism-clike';
@@ -31,10 +29,10 @@ class Unipad extends Component {
             password: null,
             passwordLogin: '',
             expiration: null,
-            secure: false,
             status: '👍',
             padSalvo: '',
             passed: true,
+            secure: false,
         }
 
         this.salva = this.salva.bind(this)
@@ -95,7 +93,7 @@ class Unipad extends Component {
         }
     }
 
-    // Salva os dados a cada 2 segundos
+    // Salva os dados
     async salva() {
         let { pad, url, status } = this.state
 
@@ -110,16 +108,6 @@ class Unipad extends Component {
             console.log(error);
         }
     }
-
-    //Chama a função de atualizar os dados a cada 1 segundo
-    // intervalo = setInterval(() => {
-    //     if (this.state.pad !== this.state.padSalvo) {
-    //         this.salva()
-    //     } else {
-    //         return
-    //     }
-    // }, 1000)
-
 
     mudaDado(e) {
         let state = this.state
@@ -141,6 +129,19 @@ class Unipad extends Component {
                         ) : (
                                 <DivPad>
                                     <TituloStatus><Link to="/">unipad </Link>{status}</TituloStatus>
+
+                                    {/* Copiar paa área de transferência */}
+                                    <CopiarAreadeTransferencia text={pad}
+                                        onCopy={() => this.setState({ copied: true })}>
+                                        <button onClick={() => alert('PAD copiado para a sua área de transfrência')}>Copiar</button>
+                                    </CopiarAreadeTransferencia>
+
+                                    {/* Compartilhar url */}
+                                    <CompartilharUrl text={`unipad.herokuapp.com${url}`}
+                                        onCopy={() => this.setState({ copied: true })}>
+                                        <button onClick={() => alert(`Link copiado para a área de transferência \n unipad.herokuapp.com${url}`)}>Compartilhar</button>
+                                    </CompartilharUrl>
+
                                     {/* TextArea */}
                                     <DivTextarea>
                                         <Textarea
@@ -151,7 +152,7 @@ class Unipad extends Component {
                                             padding={10}
                                             style={{
                                                 fontFamily: '"Fira code", "Fira Mono", monospace',
-                                                fontSize: 12,
+                                                fontSize: 14,
                                             }}
                                         />
                                     </DivTextarea>
