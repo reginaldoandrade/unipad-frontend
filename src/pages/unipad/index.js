@@ -41,6 +41,7 @@ class Unipad extends Component {
         this.salva = this.salva.bind(this)
         this.mudaDado = this.mudaDado.bind(this)
         this.verificaSenha = this.verificaSenha.bind(this)
+        this.verificaExistente = this.verificaExistente.bind(this)
     }
 
     // Executa a busca pela url e verifica se é protegida
@@ -50,27 +51,13 @@ class Unipad extends Component {
         // Verifica se a url não está expirada
         await api.delete('/expiration')
 
-        const response = await api.get(`${state.url}`)
+        // Verifica se a url existe e caso não exista, cria uma
+        await this.verificaExistente()
 
+        const response = await api.get(`${state.url}`)
         let unipad = response.data
 
-        // Caso url não exista, ele cria uma
-        if (unipad.success === false && unipad.description === 'url nao existe') {
-            let { url, password, secure, expiration, format } = this.state
-
-            format = 'javascript'
-
-            await api.post(`${state.url}`, {
-                url,
-                password,
-                format,
-                expiration,
-                secure
-            })
-            this.componentDidMount()
-            return null
-            //  Caso haja senha, ele irá exibir o form de login
-        } else if (unipad.secure === true) {
+        if (unipad.secure === true) {
             state.passed = false
         }
 
@@ -113,6 +100,37 @@ class Unipad extends Component {
         }
     }
 
+
+    // Verifica se URL já existe e cria uma nova caso exista
+    async verificaExistente() {
+        let state = this.state
+        const response = await api.get(`${state.url}`)
+
+        let unipad = response.data
+
+        if (unipad.success === false && unipad.description === 'url nao existe') {
+            let { url, password, secure, expiration, format } = this.state
+
+            format = 'javascript'
+
+            await api.post(`${state.url}`, {
+                url,
+                password,
+                format,
+                expiration,
+                secure
+            })
+
+            state.format = format
+            state.loading = false
+            this.setState(state)
+            return
+        } else {
+            return
+        }
+    }
+
+    // Altera os dados do value
     mudaDado(e) {
         let state = this.state
         state[e.target.name] = e.target.value

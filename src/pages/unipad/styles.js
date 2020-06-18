@@ -177,4 +177,5 @@ export const CompartilharUrl = styled(CopyToClipboard)`
 
 export const SelectForm = styled.select`
     border-radius: 4px;
+    cursor: pointer;
 `
