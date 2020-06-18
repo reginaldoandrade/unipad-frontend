@@ -82,18 +82,21 @@ class Main extends Component {
                     </Head>
                     <DivUrl>
                         <UrlEstatica type="url" defaultValue="unipad.herokuapp.com/" disabled />
-                        <Input type="text" name="url" id="url" autoFocus={true} required onChange={this.mudaDado} value={this.state.form.url} className="inputUrl" placeholder="exemplo" /><Span>*</Span>
+                        <Input type="text" name="url" id="url" className="inputUrl" placeholder="exemplo" required
+                            autoFocus={true} onChange={this.mudaDado} value={this.state.form.url} />
+                        <Span>*</Span>
                         <Button type="submit">Ir</Button>
                     </DivUrl>
 
                     <FormLabel htmlFor="password">
                         Senha:
-                            </FormLabel>
-                    <Input type="password" name="password" id="password" autoComplete="off" placeholder="senha de acesso" onChange={this.mudaDado} value={this.state.form.password} />
+                    </FormLabel>
+                    <Input type="password" name="password" id="password" autoComplete="off" placeholder="senha de acesso"
+                        onChange={this.mudaDado} value={this.state.form.password} />
 
                     <FormLabel htmlFor="formatation">
                         Formatação:
-                            </FormLabel>
+                    </FormLabel>
                     <Select name="format" id="formatation" value={this.state.form.format} onChange={this.mudaDado}>
                         <Option value="javascript">javascript</Option>
                         <Option value="java">java</Option>
@@ -105,7 +108,7 @@ class Main extends Component {
 
                     <FormLabel htmlFor="expira">
                         Expira em:
-                            </FormLabel>
+                    </FormLabel>
                     <Select name="expiration" id="expira" value={this.state.form.expiration} onChange={this.mudaDado}>
                         <Option value=''>Indefinido</Option>
                         <Option value={new Date(this.state.form.ano, this.state.form.mes, this.state.form.dia, this.state.form.hora, this.state.form.minutos + 30, this.state.form.segundos, this.state.form.milisegundos)}>30 minutos</Option>
@@ -121,7 +124,12 @@ class Main extends Component {
                 </Form>
 
                 <Footer>
-                    <p>Desenvolvido por <Links href="https://jarodmateus.herokuapp.com/" target="_blanck">Jarod Cavalcante</Links> - 2020</p>
+                    <p>Desenvolvido por
+                        <Links href="https://jarodmateus.herokuapp.com/" target="_blanck">
+                            Jarod Cavalcante
+                        </Links>
+                     - 2020
+                    </p>
                 </Footer>
             </Container>
         )

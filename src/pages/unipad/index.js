@@ -3,10 +3,12 @@ import { Link } from 'react-router-dom'
 import api from '../../service/api'
 import cripto from '../../util/encripty'
 
+import { FaCopy, FaShare } from 'react-icons/fa'
+
 // Editor de Código
 import { highlight, languages } from 'prismjs/components/prism-core';
 
-import { Container, DivCarregamento, TituloStatus, DivLogin, Form, FormButton, Footer, LinkFooter, TituloStatusLogin, DivTextarea, DivPad, Textarea, CopiarAreadeTransferencia, CompartilharUrl } from './styles'
+import { Container, DivCarregamento, TituloStatus, DivLogin, Form, FormButton, Footer, LinkFooter, TituloStatusLogin, DivTextarea, DivPad, Textarea, CopiarAreadeTransferencia, CompartilharUrl, Head, SelectForm } from './styles'
 
 // Estilo do editor
 import 'prismjs/components/prism-clike';
@@ -33,6 +35,7 @@ class Unipad extends Component {
             padSalvo: '',
             passed: true,
             secure: false,
+            loading: true
         }
 
         this.salva = this.salva.bind(this)
@@ -73,6 +76,7 @@ class Unipad extends Component {
 
         state.pad = unipad.pad
         state.format = unipad.format
+        state.loading = false
         this.setState(state)
     }
 
@@ -95,13 +99,13 @@ class Unipad extends Component {
 
     // Salva os dados
     async salva() {
-        let { pad, url, status } = this.state
+        let { pad, url, status, format } = this.state
 
         status = '💾'
         this.setState({ status: status })
 
         try {
-            await api.put(`edit${url}`, { pad, url })
+            await api.put(`edit${url}`, { pad, url, format })
             status = '✔️'
             this.setState({ url, status, padSalvo: pad })
         } catch (error) {
@@ -117,31 +121,47 @@ class Unipad extends Component {
     }
 
     render() {
-        const { status, passed, url, passwordLogin, pad, format } = this.state
+        const { status, passed, url, passwordLogin, pad, format, loading } = this.state
         return (
             <Container>
                 {passed === true ?
                     (
-                        format === null ? (
+                        loading ? (
                             <DivCarregamento>
                                 <p>Carregando pad...</p>
                             </DivCarregamento>
                         ) : (
                                 <DivPad>
-                                    <TituloStatus><Link to="/">unipad </Link>{status}</TituloStatus>
+                                    <Head>
+                                        {/* Alterar o formato do código */}
+                                        <SelectForm name="format" value={this.state.format} onChange={(e) => { this.mudaDado(e); this.salva() }}>
+                                            <option value="javascript">javascript</option>
+                                            <option value="java">java</option>
+                                            <option value="json">json</option>
+                                            <option value="c">C</option>
+                                            <option value="sql">SQL</option>
+                                        </SelectForm>
 
-                                    {/* Copiar paa área de transferência */}
-                                    <CopiarAreadeTransferencia text={pad}
-                                        onCopy={() => this.setState({ copied: true })}>
-                                        <button onClick={() => alert('PAD copiado para a sua área de transfrência')}>Copiar</button>
-                                    </CopiarAreadeTransferencia>
+                                        {/* Título e status de salvamento do PAD */}
+                                        <TituloStatus><Link to="/">unipad </Link>{status}</TituloStatus>
 
-                                    {/* Compartilhar url */}
-                                    <CompartilharUrl text={`unipad.herokuapp.com${url}`}
-                                        onCopy={() => this.setState({ copied: true })}>
-                                        <button onClick={() => alert(`Link copiado para a área de transferência \n unipad.herokuapp.com${url}`)}>Compartilhar</button>
-                                    </CompartilharUrl>
+                                        {/* Copiar paa área de transferência */}
+                                        <CopiarAreadeTransferencia text={pad}
+                                            onCopy={() => this.setState({ copied: true })}>
+                                            <button onClick={() => alert('PAD copiado para a sua área de transfrência')}>
+                                                <FaCopy size={14} />
+                                            </button>
+                                        </CopiarAreadeTransferencia>
 
+                                        {/* Compartilhar url */}
+                                        <CompartilharUrl text={`unipad.herokuapp.com${url}`}
+                                            onCopy={() => this.setState({ copied: true })}>
+                                            <button onClick={() => alert(`Link copiado para a sua área de transferência \nunipad.herokuapp.com${url}`)}>
+                                                <FaShare size={14} />
+                                            </button>
+                                        </CompartilharUrl>
+
+                                    </Head>
                                     {/* TextArea */}
                                     <DivTextarea>
                                         <Textarea
@@ -162,18 +182,33 @@ class Unipad extends Component {
                     : (
                         <DivLogin>
                             <Form onSubmit={this.verificaSenha} id="form-login">
-                                <TituloStatusLogin className="titulo-status-login"><Link to="/">unipad </Link></TituloStatusLogin>
+                                <TituloStatusLogin className="titulo-status-login">
+                                    <Link to="/">unipad </Link>
+                                </TituloStatusLogin>
+
                                 <h3>A url "{url}" é protegida</h3>
                                 <label htmlFor="password"></label>
-                                <input type="password" name="password" id="password" value={passwordLogin} required autoFocus autoComplete="off" onChange={(e) => this.setState({ passwordLogin: e.target.value })} placeholder="senha de acesso" />
+                                <input type="password"
+                                    name="password"
+                                    id="password"
+                                    placeholder="senha de acesso"
+                                    value={passwordLogin}
+                                    required autoFocus autoComplete="off"
+                                    onChange={(e) => this.setState({ passwordLogin: e.target.value })} />
 
-                                <p><FormButton type="submit" id="btn-login">Entrar</FormButton></p>
+                                <p>
+                                    <FormButton type="submit" id="btn-login">Entrar</FormButton>
+                                </p>
                             </Form>
                         </DivLogin>
                     )}
 
                 <Footer>
-                    <p>Desenvolvido por <LinkFooter href="https://jarodmateus.herokuapp.com/" target="_blanck">Jarod Cavalcante</LinkFooter> - 2020</p>
+                    <p>Desenvolvido por
+                        <LinkFooter href="https://jarodmateus.herokuapp.com/" target="_blanck">
+                            Jarod Cavalcante
+                        </LinkFooter>
+                     - 2020</p>
                 </Footer>
             </Container>
         )

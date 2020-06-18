@@ -23,6 +23,12 @@ export const DivCarregamento = styled.div`
     color: #FFF;
 `
 
+export const Head = styled.header`
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+`
+
 export const TituloStatus = styled.p`
     margin: 0px auto 5px auto;
     height: 15px;
@@ -138,21 +144,37 @@ export const DivPad = styled.div`
 `
 
 export const CopiarAreadeTransferencia = styled(CopyToClipboard)`
-    width: 100px;
     height: 20px;
     margin: 4px;
     cursor: pointer;
     border-radius: 3px;
     border: none;
     background-color: #FFF;
+
+    &:hover{
+        svg{
+            color: #FFF;
+        }
+        background-color: #373C3F;
+    }
 `
 
 export const CompartilharUrl = styled(CopyToClipboard)`
-    width: 100px;
     height: 20px;
     margin: 4px;
     cursor: pointer;
     border-radius: 3px;
     border: none;
     background-color: #FFF;
+
+    &:hover{
+        svg{
+            color: #FFF;
+        }
+        background-color: #373C3F;
+    }
+`
+
+export const SelectForm = styled.select`
+    border-radius: 4px;
 `
