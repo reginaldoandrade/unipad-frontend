@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { keyframes, css } from 'styled-components'
 import Editor from 'react-simple-code-editor';
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 
@@ -10,6 +10,17 @@ export const Container = styled.div`
     flex-direction: column;
     align-items: center;
 `
+
+const animate = keyframes`
+     from{
+        transform: rotate(0deg);
+    }
+
+    to{
+        transform: rotate(360deg)
+    }
+`
+
 export const DivCarregamento = styled.div`
     width: 100%;
     height: 250px;
@@ -21,6 +32,14 @@ export const DivCarregamento = styled.div`
     justify-content: center;
     align-items: center;
     color: #FFF;
+
+    ${props => props.loading &&
+        css`
+            svg{
+                animation: ${animate} 2s linear infinite;
+            }
+        `
+    }
 `
 
 export const Head = styled.header`

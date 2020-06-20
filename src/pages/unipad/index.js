@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import api from '../../service/api'
 import cripto from '../../util/encripty'
 
-import { FaCopy, FaShare } from 'react-icons/fa'
+import { FaCopy, FaShare, FaSpinner } from 'react-icons/fa'
 
 // Editor de Código
 import { highlight, languages } from 'prismjs/components/prism-core';
@@ -145,7 +145,8 @@ class Unipad extends Component {
                 {passed === true ?
                     (
                         loading ? (
-                            <DivCarregamento>
+                            <DivCarregamento loading={loading ? 1 : 0}>
+                                <FaSpinner size={24} />
                                 <p>Carregando pad...</p>
                             </DivCarregamento>
                         ) : (
