@@ -27,35 +27,37 @@ class Main extends Component {
         this.mudaDado = this.mudaDado.bind(this)
     }
 
-    //Verifica se há urls com a data de expiração expirada e deleta a mesma
+    /**
+     * Verifica se há urls expiradas
+     */
     async componentDidMount() {
         await api.delete('/expiration')
     }
 
-    // Adiciona os dados no banco de dados e redireciona para a página da url
     async renderUnipad(e) {
         e.preventDefault()
         let { url, format, password, expiration, secure } = this.state.form
+        url = `/${url}`
+        const response = await api.post(`/exists`, { url })
 
-        // Caso o input esteja vazio, não faça nada
-        if (url.length <= 0) return
-
-        const response = await api.get(`/${url}`)
-
-        // Se a url já existir, apenas redireciona ela
-        if (response !== null) {
-            window.location.href = `/${url}`
+        /**
+         * Caso a url exista, o user será redirecionado
+         */
+        if (response.data.success === true) {
+            window.location.href = `${url}`
         }
 
-        // Setando password como null caso o input esteja vazio, para salvar no DB
-        // Se o user tiver digitado um passowrd, ele encripta o mesmo
+        /**
+         * Caso o usuário digite uma senha, a mesma é encriptada
+         */
         if (password.length <= 0) {
-            password = null
+            password = cripto('123')
         } else {
             password = cripto(password)
+            secure = true
         }
 
-        await api.post(`/${url}`, {
+        await api.post(`/new`, {
             url,
             password,
             format,
@@ -63,7 +65,7 @@ class Main extends Component {
             secure
         })
 
-        window.location.href = `/${url}`
+        window.location.href = `${url}`
     }
 
     mudaDado(e) {
