@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const Container = styled.div`
     width: 100%;
-    height: 90vh;
+    height: 95vh;
     color: #FFF;
     display: flex;
     flex-direction: column;
@@ -119,6 +119,10 @@ export const Button = styled.button`
 `
 
 export const Footer = styled.footer`
-    margin-top: 22%;
+    margin-top: 40vh;
     font-size: 12px;
+
+    @media screen and (max-width: 600px){
+        margin-top: 20.5%;
+    }
 `
