@@ -52,61 +52,6 @@ class Unipad extends Component {
     }
 
     /**
-     * Efetua o login
-     */
-    async verificaSenha(e) {
-        e.preventDefault()
-
-        let { url, passwordLogin, format, pad } = this.state
-        passwordLogin = await cripto(passwordLogin)
-
-        const verification = await api.post('/auth', { url, password: passwordLogin })
-
-        if (verification.data.success === false) {
-            alert('Dados incorretos')
-        } else {
-            const token = `Bearer ${verification.data.token}`
-            localStorage.setItem('token', token)
-
-            const response = await api.get(`${url}`, {
-                headers: {
-                    authorization: token
-                }
-            })
-
-            const unipad = response.data
-
-            pad = unipad.pad
-            format = unipad.format
-            this.setState({
-                passed: true,
-                loading: false,
-                pad,
-                format,
-            })
-        }
-    }
-
-    /**
-     * Salva os dados digitados
-     */
-    async salva() {
-        let { pad, url, status, format } = this.state
-
-        status = '💾'
-        this.setState({ status: status })
-
-        try {
-            await api.put(`/edit`, { pad, url, format })
-            status = '✔️'
-            this.setState({ url, status, padSalvo: pad })
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
-
-    /**
      * Verifica se a URL existe.
      * Caso Não exista, é criada uma nova URL
      */
@@ -195,6 +140,67 @@ class Unipad extends Component {
                 loading: false,
                 state
             })
+            return
+        }
+    }
+
+    /**
+     * Efetua o login
+     */
+    async verificaSenha(e) {
+        e.preventDefault()
+
+        let { url, passwordLogin, format, pad } = this.state
+        passwordLogin = await cripto(passwordLogin)
+
+        const verification = await api.post('/auth', { url, password: passwordLogin })
+
+        if (verification.data.success === false) {
+            alert('Dados incorretos')
+        } else {
+            const token = `Bearer ${verification.data.token}`
+            localStorage.setItem('token', token)
+
+            const response = await api.get(`${url}`, {
+                headers: {
+                    authorization: token
+                }
+            })
+            const unipad = response.data
+
+            if (unipad.success === true) {
+                pad = unipad.pad
+                format = unipad.format
+                this.setState({
+                    passed: true,
+                    loading: false,
+                    pad,
+                    format,
+                })
+                return
+            } else {
+                localStorage.removeItem('token')
+                this.verificaExistente()
+            }
+        }
+    }
+
+
+    /**
+    * Salva os dados digitados
+    */
+    async salva() {
+        let { pad, url, status, format } = this.state
+
+        status = '💾'
+        this.setState({ status: status })
+
+        try {
+            await api.put(`/edit`, { pad, url, format })
+            status = '✔️'
+            this.setState({ url, status, padSalvo: pad })
+        } catch (error) {
+            console.log(error);
         }
     }
 
